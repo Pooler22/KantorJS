@@ -1,2 +1,33 @@
-﻿body {
+﻿.smallListIconTextItem-Detail {
+    margin: 5px;
+    width: calc(24%);
+    float: left;
 }
+
+.listView {
+    height: 90%;
+}
+
+
+.listView .win-container.win-container-odd {
+    background-color: #777;
+}
+
+.listView .win-container.win-container-even {
+    background-color: #444;
+}
+
+.listView .header,
+.listView .footer {
+    padding: 10px;
+    background-color: #333;
+}
+
+#content {
+	text-align: center;
+}
+
+.basicToolbar {
+    width: 100%;
+}
+

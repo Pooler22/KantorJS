@@ -3,13 +3,35 @@
 <head>
     <meta charset="utf-8" />
     <title>KantorJS</title>
-    <link href="lib/winjs-4.0.1/css/ui-light.css" rel="stylesheet" />
+    <link href="lib/winjs-4.0.1/css/ui-dark.css" rel="stylesheet" />
     <script src="lib/winjs-4.0.1/js/base.js"></script>
     <script src="lib/winjs-4.0.1/js/ui.js"></script>
     <link href="css/default.css" rel="stylesheet" />
     <script src="js/main.js"></script>
 </head>
 <body class="win-type-body">
-    <div>Content goes here!</div>
+
+    <div id="divControlCreation"></div>
+       
+    <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div>
+            <div class="smallListIconTextItem-Detail" data-win-bind="textContent: nazwa_waluty"></div>
+            <div class="smallListIconTextItem-Detail" data-win-bind="textContent: przelicznik"></div>
+            <div class="smallListIconTextItem-Detail" data-win-bind="textContent: kod_waluty"></div>
+            <div class="smallListIconTextItem-Detail" data-win-bind="textContent: kurs_sredni"></div>
+        </div>
+    </div>
+
+    <div class="listView win-selectionstylefilled"
+         data-win-control="WinJS.UI.ListView"
+         data-win-options="{
+            itemDataSource: Sample.ListView.data.dataSource,
+            itemTemplate: select('.smallListIconTextTemplate'),
+            selectionMode: 'none',
+            tapBehavior: 'none',
+            layout: { type: WinJS.UI.ListLayout }
+    }">
+    </div>
+    <script src="js/index.js"></script>
 </body>
 </html>
