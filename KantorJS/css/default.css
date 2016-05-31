@@ -1,8 +1,21 @@
-﻿.smallListIconTextItem-Detail {
+﻿.name {
     margin: 5px;
-    width: calc(24%);
+    width: calc(50% - 10px);
     float: left;
 }
+
+.details1 {
+    margin: 5px;
+    width: calc(15% - 10px);
+    float: left;
+}
+
+.details2 {
+    margin: 5px;
+    width: calc(20% - 10px);
+    float: left;
+}
+
 
 .listView {
     height: 90%;

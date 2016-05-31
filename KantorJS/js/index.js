@@ -1,31 +1,31 @@
-﻿var sue = new InternetConnection().isInternetConnection();
+﻿//check this link: http://pkapust.kis.p.lodz.pl/HTML5/
 
-var divControlCreation = document.querySelector("#divControlCreation");
+var internet = new InternetConnection().isInternetConnection();
 
-var initialDate = new Date();
-var control = new WinJS.UI.DatePicker(divControlCreation, { current: initialDate });
-
-WinJS.log && WinJS.log("Imperative DatePicker with initial date: September, 1, 1990", "sample", "status");
-
-
+var calendar = document.querySelector("#dataSelect");
+var control = new WinJS.UI.DatePicker(calendar, { current: new Date() });
 
 var myArray = new WinJS.Binding.List([]);
 
+
+var link = 'http://www.nbp.pl/kursy/xml/lastA.xml';
+
 var options = {
-    url: 'http://www.nbp.pl/kursy/xml/lastA.xml',
+    url: link,
     type: 'GET'
 };
 
-function callback(responseText, status) {
+downloadData(link);
+
+function callback(responseText, status, myArray1) {
     if (status === 200) {
         var parser = new DOMParser();
         var xmlDoc = parser.parseFromString(responseText, "text/xml");
         var xmlTree = xmlDoc.getElementsByTagName('pozycja');
-        
-        for (var i = 0; i < xmlTree.length; i++)
-        {
+
+        for (var i = 0; i < xmlTree.length; i++) {
             node = xmlTree[i];
-            myArray.push({
+            myArray1.push({
                 nazwa_waluty: xmlTree[i].getElementsByTagName('nazwa_waluty')[0].childNodes[0].nodeValue,
                 przelicznik: xmlTree[i].getElementsByTagName('przelicznik')[0].childNodes[0].nodeValue,
                 kod_waluty: xmlTree[i].getElementsByTagName('kod_waluty')[0].childNodes[0].nodeValue,
@@ -38,20 +38,27 @@ function callback(responseText, status) {
     }
 }
 
-WinJS.xhr(options).done(
-    function (result) {
-        callback(result.responseText, result.status);
-    },
-    function (result) {
-        callback(null, result.status);
-    }
-);
+
 
 
 WinJS.Namespace.define("Sample.ListView", {
     data: myArray
 });
 
-WinJS.UI.processAll();
+WinJS.UI.processAll().done(function () {
+
+    var showButton = document.querySelector(".showButton");
+    showButton.addEventListener("click", function () {
+        var contentDialog = document.querySelector(".win-contentdialog").winControl;
+        contentDialog.show();
+    });
+
+
+    var showButton1 = document.querySelector(".showButton1");
+    showButton1.addEventListener("click", function () {
+        //to do changeDate();
+    });
+
+});
 
 
