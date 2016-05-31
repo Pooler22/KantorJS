@@ -1,14 +1,13 @@
-﻿var divControlCreation = document.querySelector("#divControlCreation");
+﻿var sue = new InternetConnection().isInternetConnection();
+
+var divControlCreation = document.querySelector("#divControlCreation");
+
+var initialDate = new Date();
+var control = new WinJS.UI.DatePicker(divControlCreation, { current: initialDate });
+
+WinJS.log && WinJS.log("Imperative DatePicker with initial date: September, 1, 1990", "sample", "status");
 
 
-    // Create a JavaScript date object for date September 1, 1990.
-    // Note, JavaScript months are 0 based so September is referenced by 8, not 9
-    var initialDate = new Date(1990, 8, 1, 0, 0, 0, 0);
-
-    // Create a new DatePicker control with value of initialDate inside element "myDatePickerDiv"
-    var control = new WinJS.UI.DatePicker(divControlCreation, { current: initialDate });
-
-    WinJS.log && WinJS.log("Imperative DatePicker with initial date: September, 1, 1990", "sample", "status");
 
 var myArray = new WinJS.Binding.List([]);
 
@@ -21,15 +20,16 @@ function callback(responseText, status) {
     if (status === 200) {
         var parser = new DOMParser();
         var xmlDoc = parser.parseFromString(responseText, "text/xml");
-        var node;
-        for (var i = 0; i < xmlDoc.getElementsByTagName('pozycja').length; i++)
+        var xmlTree = xmlDoc.getElementsByTagName('pozycja');
+        
+        for (var i = 0; i < xmlTree.length; i++)
         {
-            node = xmlDoc.getElementsByTagName('pozycja')[i];
+            node = xmlTree[i];
             myArray.push({
-                    nazwa_waluty : node.getElementsByTagName('nazwa_waluty')[0].childNodes[0].nodeValue,
-                    przelicznik : node.getElementsByTagName('przelicznik')[0].childNodes[0].nodeValue,
-                    kod_waluty : node.getElementsByTagName('kod_waluty')[0].childNodes[0].nodeValue,
-                    kurs_sredni: node.getElementsByTagName('kurs_sredni')[0].childNodes[0].nodeValue
+                nazwa_waluty: xmlTree[i].getElementsByTagName('nazwa_waluty')[0].childNodes[0].nodeValue,
+                przelicznik: xmlTree[i].getElementsByTagName('przelicznik')[0].childNodes[0].nodeValue,
+                kod_waluty: xmlTree[i].getElementsByTagName('kod_waluty')[0].childNodes[0].nodeValue,
+                kurs_sredni: xmlTree[i].getElementsByTagName('kurs_sredni')[0].childNodes[0].nodeValue
             });
         }
 
