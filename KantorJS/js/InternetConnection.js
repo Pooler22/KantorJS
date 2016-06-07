@@ -2,7 +2,7 @@
     var ctor = function () {
     };
 
-    ctor.prototype.isInternetConnection = function isInternetConnection() {
+    ctor.prototype.isInternetConnection = () => {
         var internetconection = new Windows.Networking.Connectivity.NetworkInformation.getInternetConnectionProfile();
         if ((!('getNetworkConnectivityLevel' in internetconection)) || ((internetconection.getNetworkConnectivityLevel()) < 3)) {
             return false;

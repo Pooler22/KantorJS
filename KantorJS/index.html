@@ -4,19 +4,25 @@
     <meta charset="utf-8" />
     <title>KantorJS</title>
     <link href="lib/winjs-4.0.1/css/ui-dark.css" rel="stylesheet" />
+    <link href="lib/datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="lib/datepicker/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" />
+    <script src="lib/jquery/jquery-1.12.4.min.js"></script>
+    <script src="lib/datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="lib/winjs-4.0.1/js/base.js"></script>
     <script src="lib/winjs-4.0.1/js/ui.js"></script>
     <link href="css/default.css" rel="stylesheet" />
+    <script src="js/Decoder.js"></script>
     <script src="js/InternetConnection.js"></script>
+    <script src="js/Downloader.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body class="win-type-body">
 
-    <div id="dataSelect" class="win-datepicker"></div>
+    <input type="text" id="sandbox-container" class="form-control">
+
     <button class="win-button showButton1">Select</button>
 
     <div class="box">
-
         <button class="win-button showButton">Show</button>
         <div data-win-control="WinJS.UI.ContentDialog" data-win-options="{
              title: 'Main instruction',
@@ -28,8 +34,6 @@
             with slightly different wording.
         </div>
     </div>
-
-
 
     <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="name" data-win-bind="textContent: nazwa_waluty"></div>
