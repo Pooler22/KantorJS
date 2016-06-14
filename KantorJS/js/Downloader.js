@@ -2,7 +2,7 @@
     var ctor = function () {
     };
 
-    ctor.prototype.downloadLast = function downloadLast() {
+    ctor.prototype.downloadLast = function () {
         var link = 'http://www.nbp.pl/kursy/xml/lastA.xml';
 
         var options = {
@@ -12,13 +12,13 @@
         this.downloadData(link);
     }
 
-    ctor.prototype.downloadSelected = function downloadSelected(code) {
+    ctor.prototype.downloadSelected = function (code) {
         var link = "http://www.nbp.pl/kursy/xml/";
         var extension = ".xml";
         this.downloadData(link + code + extension);
     }
 
-    ctor.prototype.downloadData = function downloadData(link) {
+    ctor.prototype.downloadData = function (link) {
         var options = {
             url: link,
             type: 'GET'
@@ -48,6 +48,40 @@
                 });
             }
 
+        } else {
+            //output("Error obtaining feed. XHR status code: " + status);
+        }
+    }
+
+    ctor.prototype.downloadYears = function () {
+        let today = new Date().getFullYear();
+        for (let i = 2002; i < today; i++) {
+            downloadYear(i);
+        }
+    }
+
+    function downloadYear(year) {
+        var link = "http://www.nbp.pl/kursy/xml/dir";
+        var extension = ".txt";
+        downloadData1(link + year + extension);
+    }
+
+    function downloadData1(link) {
+        var options = {
+            url: link,
+            type: 'GET'
+        };
+
+        WinJS.xhr(options).done(
+        function (result) {
+            callback1(result.responseText, result.status, myArrayTxt);
+        }
+    );
+    }
+
+    function callback1(responseText, status, myArrayTxt1) {
+        if (status === 200) {
+            myArrayTxt1 = responseText.split("\r\n");
         } else {
             //output("Error obtaining feed. XHR status code: " + status);
         }

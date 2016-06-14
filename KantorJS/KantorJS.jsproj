@@ -73,6 +73,7 @@
     <Content Include="js\InternetConnection.js" />
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
+    <Content Include="js\test.js" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css.map" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.min.css" />
