@@ -33,7 +33,7 @@
 
     function callback(responseText, status, myArray1) {
         if (status === 200) {
-            
+
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(responseText, "text/xml");
             var xmlTree = xmlDoc.getElementsByTagName('pozycja');
@@ -81,7 +81,7 @@
 
     function callback1(responseText, status, myArrayTxt1) {
         if (status === 200) {
-            myArrayTxt1 = responseText.split("\r\n");
+            myArrayTxt1 = myArrayTxt1.concat(responseText.split("\r\n"));
         } else {
             //output("Error obtaining feed. XHR status code: " + status);
         }
