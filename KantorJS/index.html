@@ -18,22 +18,9 @@
 </head>
 <body class="win-type-body">
 
-    <input type="text" id="sandbox-container" class="form-control">
+    <input type="text" id="data-picker" class="form-control">
 
     <button class="win-button showButton1">Select</button>
-
-    <div class="box">
-        <button class="win-button showButton">Show</button>
-        <div data-win-control="WinJS.UI.ContentDialog" data-win-options="{
-             title: 'Main instruction',
-             primaryCommandText: 'button1',
-             secondaryCommandText: 'button2'
-        }">
-            Use the content area to present additional information helpful to understanding or using the dialog.
-            You can use this area to provide more detail or define terminology. Don't repeat the main instruction
-            with slightly different wording.
-        </div>
-    </div>
 
     <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="name" data-win-bind="textContent: nazwa_waluty"></div>

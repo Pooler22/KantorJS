@@ -3,23 +3,23 @@
     };
 
     ctor.prototype.downloadLast = function () {
-        var link = 'http://www.nbp.pl/kursy/xml/lastA.xml';
+        let link = 'http://www.nbp.pl/kursy/xml/lastA.xml';
 
-        var options = {
+        let options = {
             url: link,
             type: 'GET'
         };
-        this.downloadData(link);
+        this.downloadXML(link);
     }
 
     ctor.prototype.downloadSelected = function (code) {
-        var link = "http://www.nbp.pl/kursy/xml/";
-        var extension = ".xml";
-        this.downloadData(link + code + extension);
+        let link = "http://www.nbp.pl/kursy/xml/";
+        let extension = ".xml";
+        this.downloadXML(link + code + extension);
     }
 
-    ctor.prototype.downloadData = function (link) {
-        var options = {
+    ctor.prototype.downloadXML = function (link) {
+        let options = {
             url: link,
             type: 'GET'
         };
@@ -31,20 +31,20 @@
     );
     }
 
-    function callback(responseText, status, myArray1) {
+    function callback(responseText, status, array) {
         if (status === 200) {
 
-            var parser = new DOMParser();
-            var xmlDoc = parser.parseFromString(responseText, "text/xml");
-            var xmlTree = xmlDoc.getElementsByTagName('pozycja');
+            let parser = new DOMParser();
+            let xmlDoc = parser.parseFromString(responseText, "text/xml");
+            let xmlTree = xmlDoc.getElementsByTagName('pozycja');
 
-            for (var i = 0; i < xmlTree.length; i++) {
-                node = xmlTree[i];
-                myArray1.push({
-                    nazwa_waluty: xmlTree[i].getElementsByTagName('nazwa_waluty')[0].childNodes[0].nodeValue,
-                    przelicznik: xmlTree[i].getElementsByTagName('przelicznik')[0].childNodes[0].nodeValue,
-                    kod_waluty: xmlTree[i].getElementsByTagName('kod_waluty')[0].childNodes[0].nodeValue,
-                    kurs_sredni: xmlTree[i].getElementsByTagName('kurs_sredni')[0].childNodes[0].nodeValue
+            for (let i = 0; i < xmlTree.length; i++) {
+                let node = xmlTree[i];
+                array.push({
+                    nazwa_waluty: node.getElementsByTagName('nazwa_waluty')[0].childNodes[0].nodeValue,
+                    przelicznik: node.getElementsByTagName('przelicznik')[0].childNodes[0].nodeValue,
+                    kod_waluty: node.getElementsByTagName('kod_waluty')[0].childNodes[0].nodeValue,
+                    kurs_sredni: node.getElementsByTagName('kurs_sredni')[0].childNodes[0].nodeValue
                 });
             }
 
@@ -54,20 +54,21 @@
     }
 
     ctor.prototype.downloadYears = function () {
-        let today = new Date().getFullYear();
-        for (let i = 2002; i < today; i++) {
+        let currentYear = new Date().getFullYear();
+        for (let i = 2002; i < currentYear - 1; i++) {
             downloadYear(i);
         }
+        downloadYear("");
     }
 
     function downloadYear(year) {
-        var link = "http://www.nbp.pl/kursy/xml/dir";
-        var extension = ".txt";
-        downloadData1(link + year + extension);
+        let link = "http://www.nbp.pl/kursy/xml/dir";
+        let extension = ".txt";
+        downloadTxt(link + year + extension);
     }
 
-    function downloadData1(link) {
-        var options = {
+    function downloadTxt(link) {
+        let options = {
             url: link,
             type: 'GET'
         };
@@ -79,9 +80,9 @@
     );
     }
 
-    function callback1(responseText, status, myArrayTxt1) {
+    function callback1(responseText, status, myArray) {
         if (status === 200) {
-            myArrayTxt1 = myArrayTxt1.concat(responseText.split("\r\n"));
+            myArrayTxt = myArray.concat(responseText.split("\r\n").filter((x) =>  x.substring(0, 1) == "a")); 
         } else {
             //output("Error obtaining feed. XHR status code: " + status);
         }

@@ -22,13 +22,13 @@
 }
 
 
-.listView .win-container.win-container-odd {
+/*.listView .win-container.win-container-odd {
     background-color: #777;
 }
 
 .listView .win-container.win-container-even {
     background-color: #444;
-}
+}*/
 
 .listView .header,
 .listView .footer {
