@@ -7,9 +7,17 @@ var myArrayTxt = [];
 
 downloader.downloadYears();
 
+var availableDates = ["15-1-2014", "16-1-2014"];
+
 var datepicker = $('#data-picker').datepicker({
-    orientation: "bottom auto",
-});
+        orientation: "bottom auto",
+        datesDisabled: ["21/06/2016"]
+            //myArrayTxt.map(x=> { x.substring(2, 4) + "/" + x.substring(4, 6) + "/" + "20" + x.substring(0, 2) })
+    });
+
+
+
+
 
 WinJS.Namespace.define("Sample.ListView", {
     data: myArray
