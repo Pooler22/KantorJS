@@ -57,10 +57,17 @@
     }
 
     function downloadTxt(link) {
-        WinJS.xhr({url: link,type: "GET"}).done(
-        function (result) {
-            callback1(result.responseText, result.status, myArrayTxt);
-        }
+        WinJS.xhr({ url: link, type: "GET" }).done(
+            function completed(request) {
+                callback1(request.responseText, request.status, myArrayTxt);
+                $("#loading").text("Załadowano");
+            },
+            function error(request) {
+                $("#loading").text("Błąd ładowania");
+            }, 
+            function progress(request) {
+                $("#loading").text("Ładowanie");
+            }
     );
     }
 
