@@ -22,19 +22,21 @@
 
     <button class="win-button showButton1">Select</button>
 
-    <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+<div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template"
+     data-win-bind="alt:title; onclick: likeClick1;" style="display: none">
         <div class="name" data-win-bind="textContent: nazwa_waluty"></div>
         <div class="details1" data-win-bind="textContent: przelicznik"></div>
         <div class="details2" data-win-bind="textContent: kod_waluty"></div>
         <div class="details1" data-win-bind="textContent: kurs_sredni"></div>
     </div>
 
-    <div class="listView win-selectionstylefilled"
+    <div id="listView"  class="listView win-selectionstylefilled"
          data-win-control="WinJS.UI.ListView"
          data-win-options="{
             itemDataSource: Sample.ListView.data.dataSource,
             itemTemplate: select('.smallListIconTextTemplate'),
-            selectionMode: 'none',
+            oniteminvoked : 'handler',
+            selectionMode: 'single',
             tapBehavior: 'none',
             layout: { type: WinJS.UI.ListLayout }
     }">

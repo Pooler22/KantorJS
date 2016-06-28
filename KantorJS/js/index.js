@@ -5,17 +5,6 @@ var downloader = new Downloader();
 var myArray = new WinJS.Binding.List([]);
 var myArrayTxt = [];
 
-
-var datapicker = $('#txtDate').datepicker({
- //   endDate: new Date(),
-    datesDisabled: [new Date()],
-    daysOfWeekDisabled: [0,6]
-});
-
-
-downloader.downloadYears();
-
-
 WinJS.Namespace.define("Sample.ListView", {
     data: myArray
 });
@@ -24,9 +13,18 @@ function clearList() {
     myArray.splice(0, myArray.length);
 }
 
+downloader.downloadYears();
+
+var datepicker = $('#txtDate').datepicker({
+    endDate: new Date(),
+    //datesDisabled: [new Date()],
+    daysOfWeekDisabled: [0, 6]
+});
+
 WinJS.UI.processAll().done(function () {
 
     let showButton1 = document.querySelector(".showButton1");
+
     showButton1.addEventListener("click", () => {
         clearList();
 
@@ -41,8 +39,25 @@ WinJS.UI.processAll().done(function () {
         downloader.downloadSelected(test);
     });
 
-    downloader.downloadLast();
+    
+
+    function asyncAdd() {
+        return new WinJS.Promise(function (complete) {
+            downloader.downloadLast();
+            complete();
+        });
+    }
+
+    asyncAdd().done(function () {
+        for (var i = 0; i < myArray.length; i++) {
+            myArray[i].likeClick1 = WinJS.Utilities.markSupportedForProcessing(function (e) {
+                userLike1(e);
+            });
+        }
+        function userLike1(eventobj) {
+            document.getElementById("like").style.display = "none";
+        }
+    });
+
 
 });
-
-
