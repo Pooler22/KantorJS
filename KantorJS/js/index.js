@@ -4,6 +4,7 @@ var downloader = new Downloader();
 var myArray = new WinJS.Binding.List([]);
 var myArrayTxt = [];
 
+$("#listView").toggle();
 if (new InternetConnection().isInternetConnection()) {
     $("#internetConnection").text("Internet connection: true");
 }
@@ -16,7 +17,7 @@ WinJS.Namespace.define("Sample.ListView", {
 });
 
 downloader.downloadLast();
-downloader.downloadYears();
+myArrayTxt = downloader.downloadYears();
 
 var datepicker = $('#txtDate').datepicker({
     endDate: new Date(),

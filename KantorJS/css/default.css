@@ -16,19 +16,9 @@
     float: left;
 }
 
-
 .listView {
     height: 90%;
 }
-
-
-/*.listView .win-container.win-container-odd {
-    background-color: #777;
-}
-
-.listView .win-container.win-container-even {
-    background-color: #444;
-}*/
 
 .listView .header,
 .listView .footer {
@@ -43,6 +33,3 @@
 .basicToolbar {
     width: 100%;
 }
-
-
-
