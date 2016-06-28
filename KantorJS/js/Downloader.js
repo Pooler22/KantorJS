@@ -8,11 +8,10 @@
     }
 
     ctor.prototype.downloadSelected = function (code) {
-        this.downloadXML(`http://www.nbp.pl/kursy/xml/` + code + `extension`);
+        this.downloadXML(`http://www.nbp.pl/kursy/xml/` + code + `.xml`);
     }
 
     ctor.prototype.downloadXML = function (link) {
-        return new WinJS.Promise(function(complete) {
             const options = {
                 url: link,
                 type: "GET"
@@ -22,9 +21,7 @@
                 function(result) {
                     callback(result.responseText, result.status, myArray).done();
                 }
-                );
-            complete(true)
-;            });
+                );            
     }
 
     function callback(responseText, status, array) {

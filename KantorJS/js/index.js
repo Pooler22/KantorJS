@@ -40,24 +40,25 @@ WinJS.UI.processAll().done(function () {
     });
 
     
+    downloader.downloadLast();
 
-    function asyncAdd() {
-        return new WinJS.Promise(function (complete) {
-            downloader.downloadLast();
-            complete();
-        });
-    }
+    //function asyncAdd() {
+    //    return new WinJS.Promise(function (complete) {
+            
+    //        complete();
+    //    });
+    //}
 
-    asyncAdd().done(function () {
-        for (var i = 0; i < myArray.length; i++) {
-            myArray[i].likeClick1 = WinJS.Utilities.markSupportedForProcessing(function (e) {
-                userLike1(e);
-            });
-        }
-        function userLike1(eventobj) {
-            document.getElementById("like").style.display = "none";
-        }
-    });
+    //asyncAdd().done(function () {
+    //    for (var i = 0; i < myArray.length; i++) {
+    //        myArray[i].likeClick1 = WinJS.Utilities.markSupportedForProcessing(function (e) {
+    //            userLike1(e);
+    //        });
+    //    }
+    //    function userLike1(eventobj) {
+    //        document.getElementById("like").style.display = "none";
+    //    }
+    //});
 
 
 });
