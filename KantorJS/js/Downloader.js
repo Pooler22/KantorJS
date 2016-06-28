@@ -3,33 +3,29 @@
     };
 
     ctor.prototype.downloadLast = function () {
-        const link = "http://www.nbp.pl/kursy/xml/lastA.xml";
-        this.downloadXML(link);
+        this.downloadXML("http://www.nbp.pl/kursy/xml/lastA.xml");
     }
 
     ctor.prototype.downloadSelected = function (code) {
+
         this.downloadXML(`http://www.nbp.pl/kursy/xml/` + code + `.xml`);
     }
 
     ctor.prototype.downloadXML = function (link) {
-            const options = {
-                url: link,
-                type: "GET"
-            };
-
-            WinJS.xhr(options).done(
-                function(result) {
-                    callback(result.responseText, result.status, myArray).done();
-                }
-                );            
+        return new WinJS.Promise(function (complete) {
+            WinJS.xhr({ url: link, type: "GET" }).done(
+               function (result) {
+                   parse(result.responseText, result.status, myArray).then(complete());
+                   ;
+               }
+               );
+        });
     }
 
-    function callback(responseText, status, array) {
-        return new WinJS.Promise(function(complete) {
+    function parse(responseText, status, array) {
+        return new WinJS.Promise(function (complete) {
             if (status === 200) {
-
-                let parser = new DOMParser();
-                let xmlDoc = parser.parseFromString(responseText, "text/xml");
+                let xmlDoc = new DOMParser().parseFromString(responseText, "text/xml");
                 let xmlTree = xmlDoc.getElementsByTagName("pozycja");
 
                 for (let i = 0; i < xmlTree.length; i++) {
@@ -41,11 +37,10 @@
                         kurs_sredni: node.getElementsByTagName("kurs_sredni")[0].childNodes[0].nodeValue
                     });
                 }
-
             } else {
                 //output("Error obtaining feed. XHR status code: " + status);
             }
-            complete(true);
+            complete();
         });
     }
 
@@ -58,18 +53,11 @@
     }
 
     function downloadYear(year) {
-        const link = "http://www.nbp.pl/kursy/xml/dir";
-        const extension = ".txt";
-        downloadTxt(link + year + extension);
+        downloadTxt("http://www.nbp.pl/kursy/xml/dir" + year + ".txt");
     }
 
     function downloadTxt(link) {
-        let options = {
-            url: link,
-            type: "GET"
-        };
-
-        WinJS.xhr(options).done(
+        WinJS.xhr({url: link,type: "GET"}).done(
         function (result) {
             callback1(result.responseText, result.status, myArrayTxt);
         }
@@ -78,7 +66,7 @@
 
     function callback1(responseText, status, myArray) {
         if (status === 200) {
-            myArrayTxt = myArray.concat(responseText.split("\r\n").filter((x) =>  x.substring(0, 1) == "a")); 
+            myArrayTxt = myArray.concat(responseText.split("\r\n").filter((x) =>  x.substring(0, 1) == "a"));
         } else {
             //output("Error obtaining feed. XHR status code: " + status);
         }
