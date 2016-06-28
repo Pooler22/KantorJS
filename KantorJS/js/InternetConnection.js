@@ -1,10 +1,10 @@
 ﻿var InternetConnection = (function () {
-    var object = function () {
+    const object = function () {
     };
 
     object.prototype.isInternetConnection = () => {
         var internetconection = new Windows.Networking.Connectivity.NetworkInformation.getInternetConnectionProfile();
-        if ((!('getNetworkConnectivityLevel' in internetconection)) || ((internetconection.getNetworkConnectivityLevel()) < 3)) {
+        if ((!("getNetworkConnectivityLevel" in internetconection)) || ((internetconection.getNetworkConnectivityLevel()) < 3)) {
             return false;
         }
         else {
