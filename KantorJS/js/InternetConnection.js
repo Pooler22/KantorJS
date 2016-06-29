@@ -1,16 +1,9 @@
-﻿var InternetConnection = (function () {
-    const object = function () {
-    };
+﻿class InternetConnection {
 
-    object.prototype.isInternetConnection = () => {
-        var internetconection = new Windows.Networking.Connectivity.NetworkInformation.getInternetConnectionProfile();
-        if ((!("getNetworkConnectivityLevel" in internetconection)) || ((internetconection.getNetworkConnectivityLevel()) < 3)) {
-            return false;
-        }
-        else {
-            return true;
-        }
+    static isInternetConnection() {
+        let internetconection = new window.Windows.Networking.Connectivity.NetworkInformation.getInternetConnectionProfile();
+        return ((!("getNetworkConnectivityLevel" in internetconection)) || ((internetconection.getNetworkConnectivityLevel()) < 3))
+            ? false
+            : true;
     }
-    return object;
-})();
-
+};

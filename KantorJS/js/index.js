@@ -1,37 +1,32 @@
-﻿//check this link: http://pkapust.kis.p.lodz.pl/HTML5/
-
-var downloader = new Downloader();
+﻿var downloader = new Downloader();
 var myArray = new WinJS.Binding.List([]);
 var myArrayTxt = [];
-
-$("#listView").toggle();
-if (new InternetConnection().isInternetConnection()) {
-    $("#internetConnection").text("Internet connection: true");
-}
-else{
-    $("#internetConnection").text("Internet connection: false");
-}
+var disabledDate = [];
 
 WinJS.Namespace.define("Sample.ListView", {
     data: myArray
 });
 
-downloader.downloadLast();
-myArrayTxt = downloader.downloadYears();
+downloader.downloadLastCourses().then(
+    function() {
+         downloader.downloadYears();
+    }
+).then(function() {
+   // disabledDate = //todo convert myArrayTxt to date array
+}).done();
+
 
 var datepicker = $('#txtDate').datepicker({
-    endDate: new Date(),
+    endDate: new Date(),//'06-28-2016',
     daysOfWeekDisabled: [0, 6]
 });
 
 WinJS.UI.processAll().done(function () {
 
     let showButton1 = document.querySelector("#selectDate");
-
     showButton1.addEventListener("click", () => {
         clearList();
-        let test = myArrayTxt.filter(x=>x.substring(5) == getSelectedDate());
-        downloader.downloadSelected(test);
+        downloader.downloadSelectedCourses(myArrayTxt.filter(x=>x.substring(5) === getSelectedDate()));
     });
 });
 

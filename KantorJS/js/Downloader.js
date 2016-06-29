@@ -1,43 +1,50 @@
 ﻿class Downloader {
 
-    downloadLast () {
-        this.downloadXML("http://www.nbp.pl/kursy/xml/lastA.xml");
+    downloadLastCourses() {
+        return this.downloadXML("http://www.nbp.pl/kursy/xml/lastA.xml");
     }
 
-    downloadSelected(code) {
-
+    downloadSelectedCourses(code) {
         this.downloadXML(`http://www.nbp.pl/kursy/xml/` + code + `.xml`);
     }
 
     downloadXML(link) {
         return new WinJS.Promise(function (complete) {
             WinJS.xhr({ url: link, type: "GET" }).done(
-               function (result) {
-                   if (result.status === 200) {
-                       let xmlDoc = new DOMParser().parseFromString(result.responseText, "text/xml");
-                       let xmlTree = xmlDoc.getElementsByTagName("pozycja");
-
-                       for (let i = 0; i < xmlTree.length; i++) {
-                           let node = xmlTree[i];
-                           myArray.push({
-                               nazwa_waluty: node.getElementsByTagName("nazwa_waluty")[0].childNodes[0].nodeValue,
-                               przelicznik: node.getElementsByTagName("przelicznik")[0].childNodes[0].nodeValue,
-                               kod_waluty: node.getElementsByTagName("kod_waluty")[0].childNodes[0].nodeValue,
-                               kurs_sredni: node.getElementsByTagName("kurs_sredni")[0].childNodes[0].nodeValue
-                           });
-                       }
-                   } else {
-                       //output("Error obtaining feed. XHR status code: " + status);
-                   }
-               }
-               );
+                function completed(result) {
+                    if (result.status === 200) {
+                        let xmlDoc = new DOMParser().parseFromString(result.responseText, "text/xml");
+                        let xmlTree = xmlDoc.getElementsByTagName("pozycja");
+                        //TODO: myArray jako parametr
+                        for (let i = 0; i < xmlTree.length; i++) {
+                            let node = xmlTree[i];
+                            myArray.push({
+                                nazwa_waluty: node.getElementsByTagName("nazwa_waluty")[0].childNodes[0].nodeValue,
+                                przelicznik: node.getElementsByTagName("przelicznik")[0].childNodes[0].nodeValue,
+                                kod_waluty: node.getElementsByTagName("kod_waluty")[0].childNodes[0].nodeValue,
+                                kurs_sredni: node.getElementsByTagName("kurs_sredni")[0].childNodes[0].nodeValue
+                            });
+                        }
+                        complete(myArray);
+                    } else {
+                        //TODO: Error nie pobrano
+                    }
+                },
+                function error(request) {
+                    //TODO: Error nie pobrano
+                },
+                function progress(request) {
+                    //TODO: paroswanie w trakcie
+                }
+            );
         });
     }
-    
+
     downloadYears() {
-        var tab = [];
+        let tab = [];
         let currentYear = new Date().getFullYear();
         for (let i = 2002; i < currentYear - 1; i++) {
+            //todo: promis z przeliczaniem postepu 
             tab.push(this.downloadYear(i));
         }
         tab.push(this.downloadYear(""));
@@ -51,27 +58,19 @@
     downloadTxt(link) {
         WinJS.xhr({ url: link, type: "GET" }).done(
             function completed(request) {
-
                 if (request.status === 200) {
-                    return myArray.concat(request.responseText.split("\r\n").filter((x) =>  x.substring(0, 1) === "a"));
+                    //WinJS.UI.processAll();
+                    myArrayTxt = myArrayTxt.concat(request.responseText.split("\r\n").filter((x) => x.substring(0, 1) === "a"));
                 } else {
-                    //output("Error obtaining feed. XHR status code: " + status);
+                    //todo: info o niepowodzeniu pobrania
                 }
-
-                $("#loading").text("Załadowano");
-                $("#listView").css({ "display": "block" });
-                $("#loadingRing").css({ "visibility": "hidden" });
-                WinJS.UI.processAll();
             },
             function error(request) {
-                $("#loading").text("Błąd ładowania");
-            }, 
+                //TODO: informacja o bledzie
+            },
             function progress(request) {
-                $("#loading").text("Ładowanie");
-                $("#listView").toggle();
-                $("#loadingRing").toggle();
+                //TODO: paroswanie w trakcie
             }
-    );
+        );
     }
 };
-
