@@ -12,7 +12,7 @@ downloader.downloadLastCourses().then(
          downloader.downloadYears();
     }
 ).then(function() {
-   // disabledDate = //todo convert myArrayTxt to date array
+    // disabledDate = //todo convert myArrayTxt to date array
 }).done();
 
 

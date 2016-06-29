@@ -67,6 +67,7 @@
     <Content Include="images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
+    <Content Include="js\App.js" />
     <Content Include="js\Downloader.js" />
     <Content Include="js\index.js" />
     <Content Include="js\InternetConnection.js" />

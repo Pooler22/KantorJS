@@ -29,12 +29,17 @@
                     } else {
                         //TODO: Error nie pobrano
                     }
+                    $("#loading").toggle();
+                    //$("#content").toggle();
+                    $("#status").text("Wczytano dane");
                 },
                 function error(request) {
-                    //TODO: Error nie pobrano
+                    $("#status").text("Wystąpił błąd...");
                 },
                 function progress(request) {
+                    $("#loading").show();
                     //TODO: paroswanie w trakcie
+                    $("#status").text("Wczytywanie danych...");
                 }
             );
         });
@@ -64,11 +69,14 @@
                 } else {
                     //todo: info o niepowodzeniu pobrania
                 }
+                $("#status").text("Wczytano dane");
             },
             function error(request) {
+                $("#status").text("Wystąpił błąd...");
                 //TODO: informacja o bledzie
             },
             function progress(request) {
+                $("#status").text("Wczytywanie danych");
                 //TODO: paroswanie w trakcie
             }
         );

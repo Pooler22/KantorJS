@@ -13,9 +13,19 @@
     <script src="lib/winjs-4.0.1/js/ui.js"></script>
     <script src="js/InternetConnection.js"></script>
     <script src="js/Downloader.js"></script>
+    <script src="js/App.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body class="win-type-body">
+
+<div id="menu">
+    <input type="text" id="txtDate">
+    <button class="win-button" id="selectDate">Select</button>
+</div>
+
+<p id="status">Wstępne ładowanie aplikacji</p>
+
+<progress id="loading"> class="win-ring win-large"></progress>
 
 <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template"
      data-win-bind="alt:title; onclick: likeClick1;" style="display: none">
@@ -25,7 +35,7 @@
     <div class="details1" data-win-bind="textContent: kurs_sredni"></div>
 </div>
 
-<div id="listView" class="listView win-selectionstylefilled"
+<div id="content" class="listView win-selectionstylefilled"
      data-win-control="WinJS.UI.ListView"
      data-win-options="{
     itemDataSource: Sample.ListView.data.dataSource,
@@ -37,9 +47,6 @@
     layout: { type: WinJS.UI.ListLayout }
 }">
 </div>
-
-<input type="text" id="txtDate">
-<button class="win-button" id="selectDate">Select</button>
 
 <script src="js/index.js"></script>
 </body>
