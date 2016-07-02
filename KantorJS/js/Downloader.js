@@ -1,11 +1,8 @@
 ﻿class Downloader {
 
-    downloadLastCourses() {
-        return this.downloadXML("http://www.nbp.pl/kursy/xml/lastA.xml");
-    }
-
     downloadSelectedCourses(code) {
-        this.downloadXML(`http://www.nbp.pl/kursy/xml/` + code + `.xml`);
+        let checkedCode = typeof code !== 'undefined' ? code : "lastA";
+        return this.downloadXML('http://www.nbp.pl/kursy/xml/' + checkedCode + '.xml');
     }
 
     downloadXML(link) {

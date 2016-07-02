@@ -2,12 +2,20 @@
 var myArray = new WinJS.Binding.List([]);
 var myArrayTxt = [];
 var disabledDate = [];
+var startPage = true;
+
+var basicFragmentLoadDiv = document.querySelector("#content1");
+WinJS.UI.Fragments.renderCopy("pages/start.html", basicFragmentLoadDiv).done(function () {
+    WinJS.UI.processAll();
+
+});
 
 WinJS.Namespace.define("Sample.ListView", {
     data: myArray
 });
 
-downloader.downloadLastCourses().then(
+
+downloader.downloadSelectedCourses().then(
     function() {
          downloader.downloadYears();
     }
@@ -22,12 +30,26 @@ var datepicker = $('#txtDate').datepicker({
 });
 
 WinJS.UI.processAll().done(function () {
+    
 
     let showButton1 = document.querySelector("#selectDate");
     showButton1.addEventListener("click", () => {
         clearList();
         downloader.downloadSelectedCourses(myArrayTxt.filter(x=>x.substring(5) === getSelectedDate()));
     });
+    function itemInvokedHandler(eventObject) {
+        eventObject.detail.itemPromise.done(function (invokedItem) {
+            //var tname = invokedItem.data.tname;
+            //var a = "wow";
+            $("#content1").load("pages/details.html");
+        });
+    }
+
+    if (!startPage) {
+        document.querySelector('#content').winControl.oniteminvoked = itemInvokedHandler;
+    }
+    
+   
 });
 
 function clearList() {
