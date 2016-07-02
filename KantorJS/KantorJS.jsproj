@@ -67,11 +67,14 @@
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="index.html" />
+    <Content Include="js\Details.js" />
     <Content Include="js\Downloader.js" />
     <Content Include="js\index.js" />
     <Content Include="js\InternetConnection.js" />
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
+    <Content Include="js\Page.js" />
+    <Content Include="js\Start.js" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css.map" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.min.css" />

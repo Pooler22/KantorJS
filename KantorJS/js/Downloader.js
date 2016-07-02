@@ -4,9 +4,8 @@
         let checkedCode = typeof code !== 'undefined' ? code : "lastA";
         return this.downloadXML('http://www.nbp.pl/kursy/xml/' + checkedCode + '.xml');
     }
-
     downloadXML(link) {
-        return new WinJS.Promise(function (complete) {
+        return new WinJS.Promise(function(complete) {
             WinJS.xhr({ url: link, type: "GET" }).done(
                 function completed(result) {
                     if (result.status === 200) {
@@ -41,7 +40,6 @@
             );
         });
     }
-
     downloadYears() {
         let tab = [];
         let currentYear = new Date().getFullYear();
@@ -52,17 +50,16 @@
         tab.push(this.downloadYear(""));
         return tab;
     }
-
     downloadYear(year) {
         return this.downloadTxt("http://www.nbp.pl/kursy/xml/dir" + year + ".txt");
     }
-
     downloadTxt(link) {
         WinJS.xhr({ url: link, type: "GET" }).done(
             function completed(request) {
                 if (request.status === 200) {
                     //WinJS.UI.processAll();
-                    myArrayTxt = myArrayTxt.concat(request.responseText.split("\r\n").filter((x) => x.substring(0, 1) === "a"));
+                    myArrayTxt = myArrayTxt.concat(request.responseText.split("\r\n").filter((x) =>
+                        x.substring(0, 1) === "a"));
                 } else {
                     //todo: info o niepowodzeniu pobrania
                 }
