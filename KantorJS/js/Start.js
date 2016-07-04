@@ -1,13 +1,21 @@
 ﻿class Start extends Page {
     constructor() {
-        super();
-        this.name = "start";
-        this.setContent();
+        super("start");
+        this.setActivePage().done(function() {
+            WinJS.UI.processAll().done(function() {
+                document.querySelector('#content').winControl.oniteminvoked = clickItem;
+            });
+
+            let showButton1 = document.querySelector("#selectDate");
+            showButton1.addEventListener("click", () => {
+                clearList();
+                downloader.downloadSelectedCourses(myArrayTxt.filter(x => x.substring(5) === getSelectedDate()));
+            });
+        });
 
         WinJS.Namespace.define("Sample.ListView", {
             data: myArray
         });
-
 
         downloader.downloadSelectedCourses().then(
             function() {
@@ -19,33 +27,15 @@
 
 
         var datepicker = $('#txtDate').datepicker({
-            endDate: new Date(), //'06-28-2016',
+            endDate: new Date(),
             daysOfWeekDisabled: [0, 6]
         });
 
-        WinJS.UI.processAll().done(function() {
-
-
-            let showButton1 = document.querySelector("#selectDate");
-            showButton1.addEventListener("click", () => {
-                clearList();
-                downloader.downloadSelectedCourses(myArrayTxt.filter(x => x.substring(5) === getSelectedDate()));
+        function clickItem(eventObject) {
+            eventObject.detail.itemPromise.done(function (invokedItem) {
+                page = new Details(invokedItem.data.nazwa_waluty);
             });
-
-            function itemInvokedHandler(eventObject) {
-                eventObject.detail.itemPromise.done(function(invokedItem) {
-                    //var tname = invokedItem.data.tname;
-                    //var a = "wow";
-                    $("#content1").load("pages/details.html");
-                });
-            }
-
-            if (false) {
-                document.querySelector('#content').winControl.oniteminvoked = itemInvokedHandler;
-            }
-
-
-        });
+        }
 
         function clearList() {
             myArray.splice(0, myArray.length);

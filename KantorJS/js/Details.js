@@ -1,8 +1,11 @@
 ﻿class Details extends Page {
     constructor() {
-        super();
-        this.name = "details";
-        this.setContent();
-
+        super("details");
+        this.setActivePage().done(function (test) {
+            console.log(test);
+            WinJS.UI.processAll().done(function () {
+                
+            });
+        });
     }
 }
