@@ -6,16 +6,46 @@
     <link href="lib/winjs-4.0.1/css/ui-dark.css" rel="stylesheet"/>
     <link href="lib/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"/>
     <link href="lib/datepicker/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet"/>
-    <link href="css/default.css" rel="stylesheet"/>
+    <link href="css/default1.css" rel="stylesheet"/>
+    
     <script src="lib/jquery/jquery-1.12.4.min.js"></script>
     <script src="lib/datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="lib/winjs-4.0.1/js/base.js"></script>
     <script src="lib/winjs-4.0.1/js/ui.js"></script>
-    <script src="lib/EJSChart.min.js"></script>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://cdn.syncfusion.com/14.2.0.26/js/web/flat-azure/ej.web.all.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://cdn.syncfusion.com/js/assets/external/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="http://cdn.syncfusion.com/14.2.0.26/js/web/ej.web.all.min.js"></script>
+    <script src="js/ej.web.all.min.js"></script>
+    <script src="js/properties.js"></script>
 
 </head>
 
 <body class="win-type-body">
+    <div class="content-container-fluid">
+        <div class="row">
+            <div class="cols-sample-area">
+                <div id="container"></div>
+            </div>
+        </div>
+    </div>
+    <div id="Tooltip" style="display: none;">
+        <div id="icon">
+            <div id="eficon">
+            </div>
+        </div>
+        <div id="value">
+            <div>
+                <label id="efpercentage">
+                    &nbsp;#point.y#
+                </label>
+                <label id="ef">
+                    Efficiency
+                </label>
+            </div>
+        </div>
+    </div>
 
 <div id="menu">
     <input type="text" id="txtDate">

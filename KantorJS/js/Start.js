@@ -4,6 +4,7 @@
         this.setActivePage().done(function() {
             WinJS.UI.processAll().done(function() {
                 document.querySelector('#content').winControl.oniteminvoked = clickItem;
+
             });
 
             let showButton1 = document.querySelector("#selectDate");
