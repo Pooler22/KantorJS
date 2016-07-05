@@ -1,11 +1,10 @@
 ﻿class Details extends Page {
 
-
     constructor(code) {
         super("details");
         this.code = code;
-        
-        this.setActivePage().done(()=> {
+
+        this.setActivePage().done(() => {
             WinJS.UI.processAll().done(() => {
                 $("#container").ejChart({
                     primaryXAxis: {

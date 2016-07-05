@@ -5,7 +5,7 @@
         return this.downloadXML('http://www.nbp.pl/kursy/xml/' + checkedCode + '.xml');
     }
     downloadXML(link) {
-        return new WinJS.Promise(function(complete) {
+        return new WinJS.Promise((complete) => {
             WinJS.xhr({ url: link, type: "GET" }).done(
                 function completed(result) {
                     if (result.status === 200) {
@@ -53,6 +53,7 @@
     downloadYear(year) {
         return this.downloadTxt("http://www.nbp.pl/kursy/xml/dir" + year + ".txt");
     }
+
     downloadTxt(link) {
         WinJS.xhr({ url: link, type: "GET" }).done(
             function completed(request) {

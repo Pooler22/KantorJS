@@ -73,13 +73,11 @@
     <Content Include="index.html" />
     <Content Include="js\Details.js" />
     <Content Include="js\Downloader.js" />
-    <Content Include="js\ej.web.all.min.js" />
     <Content Include="js\index.js" />
     <Content Include="js\InternetConnection.js" />
     <Content Include="js\main.js" />
     <Content Include="css\default1.css" />
     <Content Include="js\Page.js" />
-    <Content Include="js\properties.js" />
     <Content Include="js\Start.js" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css.map" />
@@ -99,10 +97,12 @@
     <Content Include="lib\datepicker\css\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="lib\datepicker\js\bootstrap-datepicker.js" />
     <Content Include="lib\datepicker\js\bootstrap-datepicker.min.js" />
+    <Content Include="lib\ej.web.all.min.js" />
     <Content Include="lib\EJSChart.js" />
     <Content Include="lib\EJSChart.min.js" />
     <Content Include="lib\jquery-3.0.0.min.js" />
     <Content Include="lib\jquery\jquery-1.12.4.min.js" />
+    <Content Include="lib\properties.js" />
     <Content Include="lib\raphael.min.js" />
     <Content Include="lib\winjs-4.0.1\js\base.js" />
     <Content Include="lib\winjs-4.0.1\js\ui.js" />
