@@ -1,8 +1,9 @@
 ﻿class Start extends Page {
     constructor() {
         super("start");
-        this.setActivePage().done(function() {
-            WinJS.UI.processAll().done(function() {
+
+        this.setActivePage().done(() => {
+            WinJS.UI.processAll().done(() => {
                 document.querySelector('#content').winControl.oniteminvoked = clickItem;
 
             });
@@ -19,10 +20,10 @@
         });
 
         downloader.downloadSelectedCourses().then(
-            function() {
+            () => {
                 downloader.downloadYears();
             }
-        ).then(function() {
+        ).then(() => {
             // disabledDate = //todo convert myArrayTxt to date array
         }).done();
 
@@ -33,8 +34,8 @@
         });
 
         function clickItem(eventObject) {
-            eventObject.detail.itemPromise.done(function (invokedItem) {
-                page = new Details(invokedItem.data.nazwa_waluty);
+            eventObject.detail.itemPromise.done((invokedItem) => {
+                page = new Details(invokedItem.data.kod_waluty);
             });
         }
 
