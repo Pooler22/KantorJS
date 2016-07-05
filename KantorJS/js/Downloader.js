@@ -40,6 +40,7 @@
             );
         });
     }
+
     downloadYears() {
         let tab = [];
         let currentYear = new Date().getFullYear();
@@ -75,5 +76,36 @@
                 //TODO: paroswanie w trakcie
             }
         );
+    }
+
+
+
+    downloadSelected(code, startDate, endDate) {
+        return this.downloadJSON("http://api.nbp.pl/api/exchangerates/rates/A/" + code + "/" + startDate + "/" + endDate + "/?format=json");
+    }
+    downloadJSON(link) {
+        return new WinJS.Promise((complete) => {
+            WinJS.xhr({ url: link, type: "GET" }).done(
+                function completed(result) {
+                    if (result.status === 200) {
+                        console.log(result.responseText);
+                        complete();
+                    } else {
+                        //TODO: Error nie pobrano
+                    }
+                    $("#loading").toggle();
+                    //$("#content").toggle();
+                    $("#status").text("Wczytano dane");
+                },
+                function error(request) {
+                    $("#status").text("Wystąpił błąd...");
+                },
+                function progress(request) {
+                    $("#loading").show();
+                    //TODO: paroswanie w trakcie
+                    $("#status").text("Wczytywanie danych...");
+                }
+            );
+        });
     }
 };

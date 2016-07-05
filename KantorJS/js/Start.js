@@ -1,20 +1,15 @@
 ﻿class Start extends Page {
     constructor() {
         super("start");
-        var datepicker = this.datepicker;
-        
 
         this.setActivePage().done(() => {
             WinJS.Namespace.define("Sample.ListView", {
                 data: myArray
             });
-            downloader.downloadSelectedCourses().then(
-            () => {
-                downloader.downloadYears();
-            }
-        ).then(() => {
+            downloader.downloadYears();
+            downloader.downloadSelectedCourses().done(() => {
             // disabledDate = //todo convert myArrayTxt to date array
-        }).done();
+        });
             var parent = this;
             WinJS.UI.processAll().done(() => {
                 parent.datepicker = $('#txtDate').datepicker({

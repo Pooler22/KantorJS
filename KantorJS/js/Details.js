@@ -6,6 +6,17 @@
 
         this.setActivePage().done(() => {
             WinJS.UI.processAll().done(() => {
+                parent.datepicker = $('#datapickerStart').datepicker({
+                    endDate: new Date()
+                });
+                parent.datepicker = $('#datapickerEnd').datepicker({
+                    endDate: new Date()
+                });
+
+                downloader.downloadSelected("eur", "2012-01-01", "2012-04-31").done(() =>{
+
+                });
+
                 $("#container").ejChart({
                     primaryXAxis: {
                         title: { text: 'Year' },
