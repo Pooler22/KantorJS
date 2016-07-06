@@ -6,6 +6,10 @@
 
         this.setActivePage().done(() => {
             WinJS.UI.processAll().done(() => {
+                let back = document.querySelector("#back");
+                back.addEventListener("click", () => {
+                    page = new Start();
+                });
                 parent.datepicker = $('#datapickerStart').datepicker({
                     endDate: new Date()
                 });

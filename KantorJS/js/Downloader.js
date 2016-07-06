@@ -16,9 +16,9 @@
                             let node = xmlTree[i];
                             myArray.push({
                                 nazwa_waluty: node.getElementsByTagName("nazwa_waluty")[0].childNodes[0].nodeValue,
-                                przelicznik: node.getElementsByTagName("przelicznik")[0].childNodes[0].nodeValue,
                                 kod_waluty: node.getElementsByTagName("kod_waluty")[0].childNodes[0].nodeValue,
-                                kurs_sredni: node.getElementsByTagName("kurs_sredni")[0].childNodes[0].nodeValue
+                                kurs_sredni: parseFloat(node.getElementsByTagName("kurs_sredni")[0].childNodes[0].nodeValue.replace(",", "."))
+                                * parseFloat(node.getElementsByTagName("przelicznik")[0].childNodes[0].nodeValue)
                             });
                         }
                         complete(myArray);

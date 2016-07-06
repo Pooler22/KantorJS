@@ -6,13 +6,13 @@
 
 .details1 {
     margin: 5px;
-    width: calc(15% - 10px);
+    width: calc(25% - 10px);
     float: left;
 }
 
 .details2 {
     margin: 5px;
-    width: calc(20% - 10px);
+    width: calc(25% - 10px);
     float: left;
 }
 
