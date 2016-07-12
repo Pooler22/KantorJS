@@ -1,8 +1,4 @@
-﻿<div id="menu">
-    <input type="text" id="txtDate">
-    <button class="win-button" id="selectDate">Select</button>
-</div>
-
+﻿<button class="win-button" id="txtDate">Select date</button>
 
 <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template"
      data-win-bind="alt:title; onclick: likeClick1;" style="display: none">
@@ -11,7 +7,7 @@
     <div class="details1" data-win-bind="textContent: kurs_sredni"></div>
 </div>
 
-<div id="content" class="listView win-selectionstylefilled"
+<div id="content" class="listView "
      data-win-control="WinJS.UI.ListView"
      data-win-options="{
     itemDataSource: Sample.ListView.data.dataSource,

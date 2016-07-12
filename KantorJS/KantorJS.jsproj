@@ -79,6 +79,7 @@
     <Content Include="css\default1.css" />
     <Content Include="js\Page.js" />
     <Content Include="js\Start.js" />
+    <Content Include="lib\datepicker\bootstrap-datetimepicker.min.js" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css.map" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.min.css" />
@@ -97,11 +98,17 @@
     <Content Include="lib\datepicker\css\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="lib\datepicker\js\bootstrap-datepicker.js" />
     <Content Include="lib\datepicker\js\bootstrap-datepicker.min.js" />
+    <Content Include="lib\daterangepicker.js" />
+    <Content Include="lib\daterangepicker\daterangepicker.css" />
+    <Content Include="lib\daterangepicker\daterangepicker.js" />
+    <Content Include="lib\daterangepicker\moment.js" />
+    <Content Include="lib\daterangepicker\moment.min.js" />
     <Content Include="lib\ej.web.all.min.js" />
     <Content Include="lib\EJSChart.js" />
     <Content Include="lib\EJSChart.min.js" />
     <Content Include="lib\jquery-3.0.0.min.js" />
     <Content Include="lib\jquery\jquery-1.12.4.min.js" />
+    <Content Include="lib\moment.min.js" />
     <Content Include="lib\properties.js" />
     <Content Include="lib\raphael.min.js" />
     <Content Include="lib\winjs-4.0.1\js\base.js" />

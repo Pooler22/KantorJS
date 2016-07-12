@@ -14,15 +14,24 @@
             WinJS.UI.processAll().done(() => {
                 parent.datepicker = $('#txtDate').datepicker({
                     endDate: new Date(),
+                    autoclose: true,
                     daysOfWeekDisabled: [0, 6]
                 });
 
-                document.querySelector('#content').winControl.oniteminvoked = parent.openDetailsPage;
-
-                document.querySelector("#selectDate").addEventListener("click", () => {
+                parent.datepicker.text(new Date().yyyymmdd());
+                parent.datepicker.on('changeDate',function () {
                     parent.clearList();
-                    downloader.downloadSelectedCourses(myArrayTxt.filter(x => x.substring(5) === parent.getSelectedDate(parent)));
+                    let date = parent.datepicker.data('datepicker').dates[0].yyyymmdd();
+                    if (date == new Date().yyyymmdd()) {
+                        downloader.downloadSelectedCourses();
+                    }
+                    else {
+                        downloader.downloadSelectedCourses(myArrayTxt.filter(x => x.substring(5) === parent.getSelectedDate(parent)));
+                    }
+                    parent.datepicker.text(date);
                 });
+
+                document.querySelector('#content').winControl.oniteminvoked = parent.openDetailsPage;
             });
         });
     }

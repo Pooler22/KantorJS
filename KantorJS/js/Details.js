@@ -3,52 +3,67 @@
     constructor(code) {
         super("details");
         this.code = code;
+        this.result = [];
+        this.datapickerStart = [];
+        this.datapickerEnd = [];
+        var parent = this;
 
         this.setActivePage().done(() => {
             WinJS.UI.processAll().done(() => {
-                let back = document.querySelector("#back");
-                back.addEventListener("click", () => {
+
+                let monthBefore = new Date();
+                monthBefore = new Date(monthBefore.setMonth(monthBefore.getMonth() - 1));
+
+
+                document.querySelector("#back").addEventListener("click", () => {
                     page = new Start();
                 });
-                parent.datepicker = $('#datapickerStart').datepicker({
-                    endDate: new Date()
+                parent.datapickerStart = $('#datapickerStart').datepicker({
+                    endDate: new Date(),
+                    autoclose: true,
                 });
-                parent.datepicker = $('#datapickerEnd').datepicker({
-                    endDate: new Date()
-                });
-
-                downloader.downloadSelected("eur", "2012-01-01", "2012-04-31").done(() =>{
-
+                parent.datapickerStart.text(monthBefore.yyyymmdd());
+                parent.datapickerStart.on('changeDate', function () {
+                    parent.datapickerStart.text(parent.datapickerStart.data('datepicker').dates[0].yyyymmdd());
                 });
 
-                $("#container").ejChart({
-                    primaryXAxis: {
-                        title: { text: 'Year' },
-                        valueType: 'category'
-                    },
-                    primaryYAxis: {
-                        labelFormat: "{value}%",
-                        title: { text: 'Efficiency' },
-                    },
-                    commonSeriesOptions:
-                    {
-                        type: 'line',
-                        enableAnimation: true,
-                        tooltip: { visible: true, template: 'Tooltip' },
-                        border: { width: 1 }
-                    },
-                    series: [{
-                        points: [
-                            { x: 2005, y: 28 }, { x: 2006, y: 25 }, { x: 2007, y: 26 }, { x: 2008, y: 27 },
-                            { x: 2009, y: 32 }, { x: 2010, y: 35 }, { x: 2011, y: 30 }
-                        ],
-                        name: 'India'
-                    }],
-                    isResponsive: true,
-                    load: "loadTheme",
-                    title: { text: 'Efficiency of oil-fired power production' },
-                    theme: 'gradientdark',
-                    legend: { visible: true }
+                parent.datapickerEnd = $('#datapickerEnd').datepicker({
+                    endDate: new Date(),
+                    autoclose: true,
+                });
+                parent.datapickerEnd.text(new Date().yyyymmdd());
+                parent.datapickerEnd.on('changeDate', function () {
+                    parent.datapickerEnd.text(parent.datapickerEnd.data('datepicker').dates[0].yyyymmdd());
+                });
+
+                downloader.downloadSelected(parent.code, monthBefore.yyyymmdd(), new Date().yyyymmdd()).done((result) => {
+                    parent.result = result;
+                    let values = parent.result.rates.map((value) => { return { x: new Date(value.effectiveDate), y: value.mid } });
+                    $("#container").ejChart({
+                        primaryXAxis: {
+                            title: { text: 'Year' },
+                            labelFormat: 'dd MMM yyyy'
+                        },
+                        primaryYAxis: {
+                            title: { text: 'Value' },
+                        },
+                        commonSeriesOptions:
+                        {
+                            type: 'line',
+                            enableAnimation: true,
+                            tooltip: { visible: true, template: 'Tooltip' },
+                            border: { width: 1 }
+                        },
+                        series: [{
+                            points: values,
+                            name:  parent.result.code + " " + parent.result.currency
+                        }],
+                        isResponsive: true,
+                        load: "loadTheme",
+                        title: { text: parent.result.currency },
+                        theme: 'gradientdark',
+                        legend: { visible: true }
+                    });
                 });
             });
         });

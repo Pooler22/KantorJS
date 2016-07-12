@@ -28,11 +28,20 @@
     width: 100%;
 }
 
-.listView .win-container.win-container-odd {
-    background-color: #777;
+
+.datepicker, .day {
+    border-radius: 0px !important;
 }
 
-.listView .win-container.win-container-even {
-    background-color: #444;
+.win-listview {
+    height: calc(100%- 95px) !important;
 }
 
+#content1 {
+    height: calc(100%) !important;
+}
+
+#loading {
+    display:flex;
+    margin:0 auto 0 auto;
+}
