@@ -79,7 +79,6 @@
     <Content Include="css\default1.css" />
     <Content Include="js\Page.js" />
     <Content Include="js\Start.js" />
-    <Content Include="lib\bootstrap.min.css" />
     <Content Include="lib\datepicker\bootstrap-datetimepicker.min.js" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css" />
     <Content Include="lib\datepicker\css\bootstrap-datepicker.css.map" />
@@ -107,7 +106,6 @@
     <Content Include="lib\ej.web.all.min.js" />
     <Content Include="lib\EJSChart.js" />
     <Content Include="lib\EJSChart.min.js" />
-    <Content Include="lib\jquery-2.1.4.min.js" />
     <Content Include="lib\jquery-3.0.0.min.js" />
     <Content Include="lib\jquery\jquery-1.12.4.min.js" />
     <Content Include="lib\moment.min.js" />

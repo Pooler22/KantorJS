@@ -1,41 +1,40 @@
 ﻿class Downloader {
 
     downloadSelectedCourses(code) {
-        return this.downloadXML('http://www.nbp.pl/kursy/xml/' + (typeof code !== 'undefined' ? code : "lastA") + '.xml');
+        let checkedCode = typeof code !== 'undefined' ? code : "lastA";
+        return this.downloadXML('http://www.nbp.pl/kursy/xml/' + checkedCode + '.xml');
     }
-
     downloadXML(link) {
         return new WinJS.Promise((complete) => {
             WinJS.xhr({ url: link, type: "GET" }).done(
-                (result) => {
+                function completed(result) {
                     if (result.status === 200) {
-                        let xmlTree = new DOMParser()
-                            .parseFromString(result.responseText, "text/xml")
-                            .getElementsByTagName("pozycja");
-                        let result1 = [];
-
+                        let xmlDoc = new DOMParser().parseFromString(result.responseText, "text/xml");
+                        let xmlTree = xmlDoc.getElementsByTagName("pozycja");
+                        //TODO: myArray jako parametr
                         for (let i = 0; i < xmlTree.length; i++) {
                             let node = xmlTree[i];
-                            result1.push({
+                            myArray.push({
                                 nazwa_waluty: node.getElementsByTagName("nazwa_waluty")[0].childNodes[0].nodeValue,
                                 kod_waluty: node.getElementsByTagName("kod_waluty")[0].childNodes[0].nodeValue,
                                 kurs_sredni: parseFloat(node.getElementsByTagName("kurs_sredni")[0].childNodes[0].nodeValue.replace(",", "."))
                                 * parseFloat(node.getElementsByTagName("przelicznik")[0].childNodes[0].nodeValue)
                             });
                         }
-                        complete(result1);
+                        complete(myArray);
                     } else {
                         //TODO: Error nie pobrano
-                        $("#status").text("Błąd z wczytywaniem danych...");
                     }
                     $("#loading").toggle();
+                    //$("#content").toggle();
                     $("#status").text("Wczytano dane");
                 },
-                (request) => {
+                function error(request) {
                     $("#status").text("Wystąpił błąd...");
                 },
-                (request) => {
+                function progress(request) {
                     $("#loading").show();
+                    //TODO: paroswanie w trakcie
                     $("#status").text("Wczytywanie danych...");
                 }
             );
@@ -45,61 +44,64 @@
     downloadYears() {
         let tab = [];
         let currentYear = new Date().getFullYear();
-        let firstAviableYear = 2002;
-        for (let i = firstAviableYear; i < currentYear - 1; i++) {
-            this.downloadYear(i).then((result) => {
-                tab.push(result);
-            });
+        for (let i = 2002; i < currentYear - 1; i++) {
+            //todo: promis z przeliczaniem postepu 
+            tab.push(this.downloadYear(i));
         }
-        this.downloadYear("").then((result) => {
-            tab.push(result);
-        });
+        tab.push(this.downloadYear(""));
         return tab;
     }
-
     downloadYear(year) {
-        return new WinJS.Promise((complete) => {
-            WinJS.xhr({ url: "http://www.nbp.pl/kursy/xml/dir" + year + ".txt", type: "GET" }).done(
-                (request) => {
-                    if (request.status === 200) {
-                        let result = request.responseText.split("\r\n").filter((x) => x.substring(0, 1) === "a");
-                        complete(result);
-                    } else {
-                        $("#status").text("Wystąpił błąd z wczytaniem daych...");
-                    }
-                    $("#status").text("Wczytano dane.");
-                },
-                (request) => {
-                    $("#status").text("Wystąpił błąd...");
-                },
-                (request) => {
-                    $("#status").text("Wczytywanie danych.");
-                }
-            );
-        });
+        return this.downloadTxt("http://www.nbp.pl/kursy/xml/dir" + year + ".txt");
     }
+
+    downloadTxt(link) {
+        WinJS.xhr({ url: link, type: "GET" }).done(
+            function completed(request) {
+                if (request.status === 200) {
+                    //WinJS.UI.processAll();
+                    myArrayTxt = myArrayTxt.concat(request.responseText.split("\r\n").filter((x) =>
+                        x.substring(0, 1) === "a"));
+                } else {
+                    //todo: info o niepowodzeniu pobrania
+                }
+                $("#status").text("Wczytano dane");
+            },
+            function error(request) {
+                $("#status").text("Wystąpił błąd...");
+                //TODO: informacja o bledzie
+            },
+            function progress(request) {
+                $("#status").text("Wczytywanie danych");
+                //TODO: paroswanie w trakcie
+            }
+        );
+    }
+
+
 
     downloadSelected(code, startDate, endDate) {
         return this.downloadJSON("http://api.nbp.pl/api/exchangerates/rates/a/" + code + "/" + startDate + "/" + endDate + "/?format=json");
     }
-
     downloadJSON(link) {
         return new WinJS.Promise((complete) => {
             WinJS.xhr({ url: link, type: "GET" }).done(
-                (result) => {
+                function completed(result) {
                     if (result.status === 200) {
                         complete(JSON.parse(result.responseText));
                     } else {
-                        $("#status").text("Wystąpił błąd...");
+                        //TODO: Error nie pobrano
                     }
                     $("#loading").toggle();
+                    //$("#content").toggle();
                     $("#status").text("Wczytano dane");
                 },
-                (request) => {
+                function error(request) {
                     $("#status").text("Wystąpił błąd...");
                 },
-                (request) => {
+                function progress(request) {
                     $("#loading").show();
+                    //TODO: paroswanie w trakcie
                     $("#status").text("Wczytywanie danych...");
                 }
             );
