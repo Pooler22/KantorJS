@@ -1,8 +1,4 @@
 ﻿var downloader = new Downloader();
-var myArray = new WinJS.Binding.List([]);
-var myArrayTxt = [];
-var disabledDate = [];
-
 var page;
 var data = loadData();
 

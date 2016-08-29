@@ -1,15 +1,23 @@
 ﻿class Start extends Page {
+
     constructor() {
         super("start");
+        this.myArray = new WinJS.Binding.List([]);
+        this.myArrayTxt = [];
+        this.disabledDate = [];
 
         this.setActivePage().done(() => {
             WinJS.Namespace.define("Sample.ListView", {
-                data: myArray
+                data: this.myArray
             });
             downloader.downloadYears();
-            downloader.downloadSelectedCourses().done(() => {
-            // disabledDate = //todo convert myArrayTxt to date array
-        });
+            downloader.downloadSelectedCourses().then((b) => {
+                for (var i = 0; i < b.length; i++) {
+                    this.myArray.push(b[i]);
+                }
+
+            });
+
             var parent = this;
             WinJS.UI.processAll().done(() => {
                 parent.datepicker = $('#txtDate').datepicker({
@@ -26,7 +34,7 @@
                         downloader.downloadSelectedCourses();
                     }
                     else {
-                        downloader.downloadSelectedCourses(myArrayTxt.filter(x => x.substring(5) === parent.getSelectedDate(parent)));
+                        downloader.downloadSelectedCourses(this.myArrayTxt.filter(x => x.substring(5) === parent.getSelectedDate(parent)));
                     }
                     parent.datepicker.text(date);
                 });
@@ -37,7 +45,7 @@
     }
 
     clearList() {
-        myArray.splice(0, myArray.length);
+        this.myArray.splice(0, this.myArray.length);
     }
 
     openDetailsPage(eventObject) {
