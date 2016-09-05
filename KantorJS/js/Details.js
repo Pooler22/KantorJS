@@ -113,22 +113,36 @@
         });
 
         function testDate() {
+            let btn = $("#generateChart")[0];
+            
             let startDate = parent.datapickerStart.text();
             let endDate = parent.datapickerEnd.text();
             if (Number(endDate.substr(0, 4)) < Number(startDate.substr(0, 4))) {
-
+                btn.disabled = true;
             }
             else if (Number(endDate.substr(0, 4)) == Number(startDate.substr(0, 4))) {
-                if (Number(endDate.substr(4, 2)) < Number(startDate.substr(4, 2))) {
-                    console.log();
+                if (Number(endDate.substr(5, 2)) < Number(startDate.substr(5, 2))) {
+                    btn.disabled = true;
                 }
-                else if (Number(endDate.substr(4, 2)) == Number(startDate.substr(4, 2))) {
-                    if (Number(endDate.substr(6, 2)) <= Number(startDate.substr(6, 2))) {
-
+                else if (Number(endDate.substr(5, 2)) == Number(startDate.substr(5, 2))) {
+                    if (Number(endDate.substr(8, 2)) <= Number(startDate.substr(8, 2))) {
+                        btn.disabled = true;
+                    }
+                    else{
+                        btn.disabled = false;
                     }
                 }
+                else {
+                    btn.disabled = false;
+                }
             }
+            else {
+                btn.disabled = false;
+            }
+
+            WinJS.UI.process(btn);
         }
+
 
         function prepareChart(values) {
             diagram = $("#container").ejChart({
