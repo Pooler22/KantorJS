@@ -101,8 +101,34 @@
                     let values = parent.result.rates.map((value) => { return { x: new Date(value.effectiveDate), y: value.mid } });
                     prepareChart(values);
                 });
+
+                //datepicker
+                parent.datapickerEnd.on('changeDate', function () {
+                   testDate(); 
+                });
+                parent.datapickerStart.on('changeDate', function () {
+                   testDate(); 
+                });
             });
         });
+
+        function testDate() {
+            let startDate = parent.datapickerStart.text();
+            let endDate = parent.datapickerEnd.text();
+            if (Number(endDate.substr(0, 4)) < Number(startDate.substr(0, 4))) {
+
+            }
+            else if (Number(endDate.substr(0, 4)) == Number(startDate.substr(0, 4))) {
+                if (Number(endDate.substr(4, 2)) < Number(startDate.substr(4, 2))) {
+                    console.log();
+                }
+                else if (Number(endDate.substr(4, 2)) == Number(startDate.substr(4, 2))) {
+                    if (Number(endDate.substr(6, 2)) <= Number(startDate.substr(6, 2))) {
+
+                    }
+                }
+            }
+        }
 
         function prepareChart(values) {
             diagram = $("#container").ejChart({
